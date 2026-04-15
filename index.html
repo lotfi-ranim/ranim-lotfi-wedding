@@ -1247,7 +1247,7 @@ $("child-no").addEventListener("click",()=>{
 // 4. Go to Account → API Keys → copy your PUBLIC KEY
 // 5. Replace the three placeholder strings below with your real values
 // ─────────────────────────────────────────────────────────────────────────────
-const EMAILJS_SERVICE_ID  = "service_innjlnk";
+const EMAILJS_SERVICE_ID  = "service_37zgzpf";
 const EMAILJS_TEMPLATE_ID = "template_hvcmweg";
 const EMAILJS_PUBLIC_KEY  = "yYKfvfTb50TIvwFZe";
 
@@ -1283,11 +1283,14 @@ $("submitBtn").addEventListener("click",async()=>{
   if(keysSet){
     try{
       emailjs.init(EMAILJS_PUBLIC_KEY);
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload);
+      const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload);
+      console.log("EmailJS success:", response);
       finish();
     }catch(err){
-      console.error("EmailJS error:",err);
-      st.textContent="Something went wrong. Please try again.";
+      console.error("EmailJS error status:", err.status);
+      console.error("EmailJS error text:", err.text);
+      console.error("Full error:", JSON.stringify(err));
+      st.textContent="Error: " + (err.text || err.status || "Unknown error");
       $("submitBtn").disabled=false;
     }
   } else {
