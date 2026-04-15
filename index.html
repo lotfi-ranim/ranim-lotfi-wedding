@@ -1282,7 +1282,8 @@ $("submitBtn").addEventListener("click",async()=>{
 
   if(keysSet){
     try{
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload, EMAILJS_PUBLIC_KEY);
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload);
       finish();
     }catch(err){
       console.error("EmailJS error:",err);
